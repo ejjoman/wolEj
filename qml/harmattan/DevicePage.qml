@@ -21,7 +21,7 @@ Page {
             root.device = devices.get(root.deviceIndex)
 
             showOnStartscreenSwitch.init = true
-            showOnStartscreenSwitch.checked = fileSystem.fileExists("/home/user/.local/share/applications/wolEj_harmattan_" + root.device.id + ".desktop")
+            showOnStartscreenSwitch.checked = fileSystem.fileExists("/home/user/.local/share/applications/wakeonlan_harmattan_" + root.device.id + ".desktop")
             showOnStartscreenSwitch.init = false
         }
     }
@@ -106,12 +106,12 @@ Page {
                     onCheckedChanged: {
                         if (!showOnStartscreenSwitch.init) {
                             if (showOnStartscreenSwitch.checked) {
-                                var fileContents = fileSystem.readFromFile("/opt/wolEj/resources/mask.desktop")
+                                var fileContents = fileSystem.readFromFile("/opt/wakeonlan/resources/mask.desktop")
 
                                 fileContents = fileContents.replace(/\$MAC/g, root.device.MAC);
                                 fileContents = fileContents.replace(/\$NAME/g, root.device.Name);
 
-                                if (fileSystem.writeToFile("/home/user/.local/share/applications/wolEj_harmattan_" + root.device.id + ".desktop", fileContents)) {
+                                if (fileSystem.writeToFile("/home/user/.local/share/applications/wakeonlan_harmattan_" + root.device.id + ".desktop", fileContents)) {
                                     infoBanner.text = "Starter erfolgreich angelegt."
                                 } else {
                                     infoBanner.text = "Starter konnte nicht angelegt werden."
@@ -120,7 +120,7 @@ Page {
 
                                 infoBanner.show();
                             } else {
-                                if (fileSystem.deleteFile("/home/user/.local/share/applications/wolEj_harmattan_" + root.device.id + ".desktop"))
+                                if (fileSystem.deleteFile("/home/user/.local/share/applications/wakeonlan_harmattan_" + root.device.id + ".desktop"))
                                     infoBanner.text = "Starter wurde gelöscht."
                                 else
                                     infoBanner.text = "Starter konnte nicht gelöscht werden."

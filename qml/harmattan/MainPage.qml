@@ -170,14 +170,6 @@ Page {
 
         ToolIcon {
             platformIconId: "toolbar-add"
-            anchors.left: parent.left
-            onClicked: {
-                pageStack.push(splash)
-            }
-        }
-
-        ToolIcon {
-            platformIconId: "toolbar-add"
             anchors.centerIn: parent
             onClicked: {
                 addDeviceSheet.open();
@@ -251,7 +243,7 @@ Page {
 
     QueryDialog {
         id: aboutDialog
-        titleText: "wolEy %1".arg(applicationVersion)
+        titleText: "Wake On Lan 1.0.0"
     }
 
     QueryDialog {

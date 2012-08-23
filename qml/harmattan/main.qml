@@ -23,32 +23,13 @@ PageStackWindow {
 
 //        property int backgroundFillMode: Image.Tile
 //    }
-
+//
     platformStyle: PageStackWindowStyle {
         id: appStyle
 
         cornersVisible: true
         background: "image://theme/meegotouch-video-background"
         backgroundFillMode: Image.Stretch
-    }
-
-    Page {
-        id: splash
-        tools: ToolBarLayout {
-            visible: true
-        }
-
-        PageHeader {
-            id: pageHeader
-
-            anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-            }
-
-            title: " "
-        }
     }
 
     MainPage {
@@ -136,7 +117,7 @@ PageStackWindow {
         visible: true
 
         ToolIcon {
-            visible: false // pageStack.depth > 1
+            visible: pageStack.depth > 1
             platformIconId: "toolbar-back"
             onClicked: {
                 pageStack.pop();
