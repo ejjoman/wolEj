@@ -158,7 +158,7 @@ Page {
         }
 
         EmptyListInfoLabel {
-            text: qsTr("Noch keine Geräte gespeichert")
+            text: qsTr("Keine Geräte vorhanden")
             anchors.fill: parent
             visible: devices.count == 0
         }

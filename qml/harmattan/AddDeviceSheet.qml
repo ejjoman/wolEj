@@ -111,6 +111,41 @@ ExtendedSheet {
                     }
                 }
 
+                Row {
+                    width: parent.width
+
+                    Column {
+                        width: parent.width
+
+                        Label {
+                            anchors {
+                                left: parent.left
+                            }
+
+                            platformStyle: LabelStyle {
+                                fontFamily: "Nokia Pure Text Light"
+                                fontPixelSize: 22
+                            }
+
+                            text: "... oder MAC aus Zwischenablage einfügen"
+                        }
+
+                        Button {
+                            id: parseFromClipboard
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                            }
+
+                            text: "Einfügen"
+                            onClicked: {
+                                parseMacAddressQueryDialog.open()
+                            }
+                        }
+
+                    }
+                }
+
 //                Row {
 //                    //anchors.left: parent.left
 //                    //anchors.right: parent.right
@@ -168,10 +203,13 @@ ExtendedSheet {
         onAccepted: {
             var valid = macAdressButtonRow.parseMac(clipboard.getText());
 
-            if (valid)
+            if (valid) {
                 infoBanner.text = "MAC-Adresse aus der Zwischenablage übernommen"
-            else
+                infoBanner.iconSource = "../images/success.png"
+            } else {
                 infoBanner.text = "Keine gültige MAC-Adresse in der Zwischenablage gefunden"
+                infoBanner.iconSource = "../images/error.png"
+            }
 
             infoBanner.show()
         }

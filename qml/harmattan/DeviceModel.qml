@@ -29,7 +29,8 @@ ListModel {
                                 deviceModel.append({
                                                        id: rs.rows.item(i).ID,
                                                        Name: rs.rows.item(i).Name,
-                                                       MAC: rs.rows.item(i).MAC
+                                                       MAC: rs.rows.item(i).MAC,
+                                                       hasStarter: hasStarter(rs.rows.item(i).ID)
                                                    })
 
                     });
@@ -80,11 +81,47 @@ ListModel {
         load();
     }
 
+    function getById(id){
+        for (var i=0; i < deviceModel.count; i++) {
+            var item = deviceModel.get(i);
+
+            if (item.id === id)
+                return item;
+        }
+
+        return undefined;
+    }
+
     function getSelectedItem() {
         if (deviceModel.selectedIndex === -1)
             return null;
 
         return deviceModel.get(deviceModel.selectedIndex)
+    }
+
+    function hasStarter(id) {
+        return fileSystem.fileExists("/home/user/.local/share/applications/wakeonlan_harmattan_" + id + ".desktop")
+    }
+
+    function removeStarter(id) {
+        if (hasStarter(id)) {
+            return fileSystem.deleteFile("/home/user/.local/share/applications/wakeonlan_harmattan_" + id + ".desktop")
+        } else {
+            return false;
+        }
+    }
+
+    function addStarter(id) {
+        if (hasStarter(id)) {
+            return true;
+        } else {
+            var fileContents = fileSystem.readFromFile("/opt/wakeonlan/resources/mask.desktop")
+
+            fileContents = fileContents.replace(/\$MAC/g, deviceModel.getById(id).MAC);
+            fileContents = fileContents.replace(/\$NAME/g, deviceModel.getById(id).Name);
+
+            return fileSystem.writeToFile("/home/user/.local/share/applications/wakeonlan_harmattan_" + id + ".desktop", fileContents)
+        }
     }
 
     Component.onCompleted: load()

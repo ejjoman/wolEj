@@ -18,7 +18,7 @@ ButtonRow {
         group5.validSelection &&
         group6.validSelection
 
-    property bool showParseMacAddressButton: true
+    property bool showParseMacAddressButton: false
     property string macGroupSeparator: ":"
     property string selectedMacAddress: ''
 
@@ -133,7 +133,7 @@ ButtonRow {
 
     Button {
         visible: root.showParseMacAddressButton
-        text: "..."
+        text: "Einfügen"
         onClicked: {
             root.openParseMacAddressQueryDialog()
         }

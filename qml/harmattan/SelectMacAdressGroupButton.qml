@@ -5,7 +5,7 @@ import com.nokia.extras 1.1
 
 Button {
     id: root
-    text: (root.groupIndex + 1).toString()
+    text: "xx" //(root.groupIndex + 1).toString()
 
     property int groupIndex: 0
     property ListModel model: null
@@ -23,7 +23,7 @@ Button {
 
     onGroupValueChanged: {
         if (groupValue === "") {
-            root.text = (root.groupIndex + 1).toString()
+            root.text = "xx" // (root.groupIndex + 1).toString()
 
             hexDigit1.selectedIndex = 0
             hexDigit2.selectedIndex = 0

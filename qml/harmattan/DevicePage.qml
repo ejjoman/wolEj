@@ -21,7 +21,7 @@ Page {
             root.device = devices.get(root.deviceIndex)
 
             showOnStartscreenSwitch.init = true
-            showOnStartscreenSwitch.checked = fileSystem.fileExists("/home/user/.local/share/applications/wakeonlan_harmattan_" + root.device.id + ".desktop")
+            showOnStartscreenSwitch.checked = root.device.hasStarter //fileSystem.fileExists("/home/user/.local/share/applications/wakeonlan_harmattan_" + root.device.id + ".desktop")
             showOnStartscreenSwitch.init = false
         }
     }
@@ -89,7 +89,7 @@ Page {
             }
 
             ExtendedListItem {
-                title: "Auf Startbildschirm anzeigen"
+                title: qsTr("Auf Startbildschirm anzeigen")
 
                 onClicked: {
                     showOnStartscreenSwitch.checked = !showOnStartscreenSwitch.checked
@@ -103,37 +103,36 @@ Page {
 
                     property bool init: false
 
-                    onCheckedChanged: {
+                    onCheckedChanged: {                        
                         if (!showOnStartscreenSwitch.init) {
                             if (showOnStartscreenSwitch.checked) {
-                                var fileContents = fileSystem.readFromFile("/opt/wakeonlan/resources/mask.desktop")
-
-                                fileContents = fileContents.replace(/\$MAC/g, root.device.MAC);
-                                fileContents = fileContents.replace(/\$NAME/g, root.device.Name);
-
-                                if (fileSystem.writeToFile("/home/user/.local/share/applications/wakeonlan_harmattan_" + root.device.id + ".desktop", fileContents)) {
-                                    infoBanner.text = "Starter erfolgreich angelegt."
+                                if (devices.addStarter(root.device.id)) {
+                                    infoBanner.text = qsTr("Starter hinzugefügt")
+                                    infoBanner.iconSource = "../images/success.png"
                                 } else {
-                                    infoBanner.text = "Starter konnte nicht angelegt werden."
+                                    infoBanner.text = qsTr("Starter konnte nicht hinzugefügt werden")
+                                    infoBanner.iconSource = "../images/error.png"
+
                                     showOnStartscreenSwitch.checked = false;
                                 }
-
-                                infoBanner.show();
                             } else {
-                                if (fileSystem.deleteFile("/home/user/.local/share/applications/wakeonlan_harmattan_" + root.device.id + ".desktop"))
-                                    infoBanner.text = "Starter wurde gelöscht."
-                                else
-                                    infoBanner.text = "Starter konnte nicht gelöscht werden."
-
-                                infoBanner.show();
+                                if (devices.removeStarter(root.device.id)) {
+                                    infoBanner.text = qsTr("Starter entfernt")
+                                    infoBanner.iconSource = "../images/success.png"
+                                } else {
+                                    infoBanner.text = qsTr("Starter konnte nicht entfernt werden")
+                                    infoBanner.iconSource = "../images/error.png"
+                                }
                             }
+
+                            infoBanner.show();
                         }
                     }
                 }
             }
 
             ExtendedListItem {
-                title: "Befehl zum Aufwecken kopieren"
+                title: qsTr("Befehl zum Aufwecken kopieren")
 
                 Image {
                     source: "image://theme/icon-m-common-drilldown-arrow" + (theme.inverted ? "-inverse" : "")
