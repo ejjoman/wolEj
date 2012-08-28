@@ -200,7 +200,7 @@ Page {
             }
 
             MenuItem {
-                text: qsTr("Über wolEj")
+                text: qsTr("Über Wake On Lan")
                 onClicked: {
                     aboutDialog.open()
                 }
@@ -235,7 +235,7 @@ Page {
 
         onStatusChanged: {
             if (deviceContextMenu.status === DialogStatus.Opening) {
-                wakeDeviceMenuItem.text = qsTr("Gerät '%1' starten").arg(devices.getSelectedItem().Name)
+                wakeDeviceMenuItem.text = qsTr("Gerät '%1' aufwecken").arg(devices.getSelectedItem().Name)
                 deleteDeviceMenuItem.text = qsTr("Gerät '%1' löschen").arg(devices.getSelectedItem().Name)
             }
         }

@@ -87,7 +87,7 @@ PageStackWindow {
                 wakeOnLan.sendMagicPacket(macAddress, macGroupSeperator);
 
                 if (showInfoBanner) {
-                    infoBanner.text = "Magisches Paket wurde gesendet"
+                    infoBanner.text = qsTr("Magisches Paket wurde gesendet")
                     infoBanner.iconSource = "../images/success.png"
                     infoBanner.show()
                 }
@@ -98,7 +98,7 @@ PageStackWindow {
                 return true;
             } else {
                 if (showInfoBanner) {
-                    infoBanner.text = "Fehler: Keine Verbindung mit WLAN"
+                    infoBanner.text = qsTr("Fehler: Keine Verbindung mit WLAN")
                     infoBanner.iconSource = "../images/error.png"
                     infoBanner.show()
                 }

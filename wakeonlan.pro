@@ -78,9 +78,10 @@ contains(MEEGO_EDITION,harmattan) {
 	INSTALLS += launcher_icon
 }
 
-
 contains(MEEGO_EDITION,harmattan) {
 	icon.files = wakeonlan80.png
     icon.path = /usr/share/icons/hicolor/80x80/apps
     INSTALLS += icon
 }
+
+#translate_hack{ SOURCES += qml/harmattan/*.qml }
