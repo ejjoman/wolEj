@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="translation.en.qm">i18n/translation.en.qm</file>
+        <file alias="translation.de.qm">i18n/translation.de.qm</file>
+    </qresource>
+</RCC>

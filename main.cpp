@@ -15,6 +15,17 @@ using namespace QtMobility;
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {   
     QScopedPointer<QApplication> app(createApplication(argc, argv));
+
+    QString locale = QLocale::system().name();
+    QTranslator translator;
+
+    // fall back to using English translation, if one specific to the current
+    // setting of the device is not available.
+    if (!(translator.load("translation."+locale, ":/")))
+        translator.load("translation.en", ":/");
+
+    app->installTranslator(&translator);
+
     QStringList arguments = app->arguments();
 
     if (arguments.size() > 1 && arguments.at(1) == "-wake") {
@@ -26,7 +37,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
             if (macIdx != -1 && arguments.count() >= macIdx+1)
                 mac = arguments.at(macIdx+1);
         } else {
-            qDebug() << "Bitte MAC-Adresse angegeben" << endl;
+            qDebug() << QObject::tr("Bitte MAC-Adresse angegeben") << endl;
             return 1;
         }
 

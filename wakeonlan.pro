@@ -70,7 +70,8 @@ HEADERS += \
     qmlfilesystemadapter.h \
     qmlsystembanneradapter.h
 
-RESOURCES +=
+RESOURCES += \
+    resources.qrc
 
 contains(MEEGO_EDITION,harmattan) {
 	launcher_icon.files = WakeOnLan80_launcher.png
