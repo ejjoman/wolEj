@@ -61,7 +61,8 @@ OTHER_FILES += \
     qml/plugins/com/ejjoman/meego/qmldir \
     qml/plugins/com/ejjoman/meego/Separator.qml \
     qml/images/clipboard.png \
-	resources/mask.desktop
+	resources/mask.desktop \
+    qtc_packaging/debian_harmattan/prerm
 
 HEADERS += \
 	qmlclipboardadapter.h \

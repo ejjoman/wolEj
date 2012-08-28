@@ -59,11 +59,16 @@ ListModel {
     }
 
     function clearDevices() {
-        __db().transaction(
-                    function(tx) {
-                        __ensureTables(tx);
-                        tx.executeSql('DELETE FROM Devices');
-                    });
+//        __db().transaction(
+//                    function(tx) {
+//                        __ensureTables(tx);
+//                        tx.executeSql('DELETE FROM Devices');
+//                    });
+
+        for (var i=0; i<count; i++) {
+            var item = get(i);
+            deleteDevice(item.id);
+        }
 
         load();
     }
@@ -77,6 +82,8 @@ ListModel {
 
         if (deviceModel.selectedIndex === id)
             deviceModel.selectedIndex = -1;
+
+        removeStarter(id);
 
         load();
     }
