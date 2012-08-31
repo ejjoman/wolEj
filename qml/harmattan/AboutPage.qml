@@ -10,7 +10,7 @@ Page {
 
     PageHeader {
         id: pageHeader
-
+        useSheetHeaderBackground: true
         anchors {
             top: parent.top
             left: parent.left
@@ -39,7 +39,7 @@ Page {
 
     Flickable {
         id: flickable
-
+        clip: true
         contentHeight: wrapperCol.childrenRect.height
 
         anchors {
@@ -65,8 +65,11 @@ Page {
                 }
 
                 Image {
-                    source: "../images/wakeonlan80.png"
+                    source: "../../resources/wakeonlan.png"
                     anchors.horizontalCenter: parent.horizontalCenter
+                    smooth: true
+                    width: 150
+                    height: 150
                 }
 
                 Label {

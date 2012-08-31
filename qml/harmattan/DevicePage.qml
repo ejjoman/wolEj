@@ -28,7 +28,7 @@ Page {
 
     PageHeader {
         id: pageHeader
-
+        useSheetHeaderBackground: true
         anchors {
             top: parent.top
             left: parent.left
@@ -60,7 +60,7 @@ Page {
 
     Flickable {
         id: deviceFlickable
-
+        clip: true
         anchors {
             //margins: UIConstants.MARGIN_XLARGE
             top: pageHeader.bottom

@@ -28,7 +28,7 @@ PageStackWindow {
         id: appStyle
 
         cornersVisible: true
-        background: "image://theme/meegotouch-video-background"
+        background: theme.inverted ? "image://theme/meegotouch-video-background" : "image://theme/meegotouch-applicationpage-background"+__invertedString
         backgroundFillMode: Image.Stretch
     }
 

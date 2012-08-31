@@ -62,7 +62,8 @@ OTHER_FILES += \
     qml/plugins/com/ejjoman/meego/Separator.qml \
     qml/images/clipboard.png \
 	resources/mask.desktop \
-    qtc_packaging/debian_harmattan/prerm
+    qtc_packaging/debian_harmattan/prerm \
+    resources/wakeonlan.png
 
 HEADERS += \
 	qmlclipboardadapter.h \
@@ -74,15 +75,14 @@ RESOURCES += \
     resources.qrc
 
 contains(MEEGO_EDITION,harmattan) {
-	launcher_icon.files = WakeOnLan80_launcher.png
+	launcher_icon.files = wakeonlan80_launcher.png
 	launcher_icon.path = /usr/share/icons/hicolor/80x80/apps
-	INSTALLS += launcher_icon
+
+	icon.files = wakeonlan80.png
+	icon.path = /usr/share/icons/hicolor/80x80/apps
+
+	INSTALLS += launcher_icon icon
 }
 
-contains(MEEGO_EDITION,harmattan) {
-	icon.files = wakeonlan80.png
-    icon.path = /usr/share/icons/hicolor/80x80/apps
-    INSTALLS += icon
-}
 
 #translate_hack{ SOURCES += qml/harmattan/*.qml }

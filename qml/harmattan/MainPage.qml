@@ -31,7 +31,7 @@ Page {
 
     PageHeader {
         id: pageHeader
-
+        useSheetHeaderBackground: true
         anchors {
             top: parent.top
             left: parent.left
@@ -55,6 +55,7 @@ Page {
             anchors.fill: parent
             visible: devices.count > 0
             model: devices
+            clip: true
 
             delegate: ExtendedListItem {
                 title: model.Name
