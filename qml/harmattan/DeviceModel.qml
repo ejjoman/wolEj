@@ -107,12 +107,12 @@ ListModel {
     }
 
     function hasStarter(id) {
-        return fileSystem.fileExists("/home/user/.local/share/applications/wakeonlan_harmattan_" + id + ".desktop")
+        return fileSystem.fileExists("/home/user/.local/share/applications/wolEj_" + id + ".desktop")
     }
 
     function removeStarter(id) {
         if (hasStarter(id)) {
-            return fileSystem.deleteFile("/home/user/.local/share/applications/wakeonlan_harmattan_" + id + ".desktop")
+            return fileSystem.deleteFile("/home/user/.local/share/applications/wolEj_" + id + ".desktop")
         } else {
             return false;
         }
@@ -122,12 +122,12 @@ ListModel {
         if (hasStarter(id)) {
             return true;
         } else {
-            var fileContents = fileSystem.readFromFile("/opt/wakeonlan/resources/mask.desktop")
+            var fileContents = fileSystem.readFromFile("/opt/wolEj/resources/mask.desktop")
 
             fileContents = fileContents.replace(/\$MAC/g, deviceModel.getById(id).MAC);
             fileContents = fileContents.replace(/\$NAME/g, deviceModel.getById(id).Name);
 
-            return fileSystem.writeToFile("/home/user/.local/share/applications/wakeonlan_harmattan_" + id + ".desktop", fileContents)
+            return fileSystem.writeToFile("/home/user/.local/share/applications/wolEj_" + id + ".desktop", fileContents)
         }
     }
 

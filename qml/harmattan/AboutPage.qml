@@ -65,7 +65,7 @@ Page {
                 }
 
                 Image {
-                    source: "../../resources/wakeonlan.png"
+                    source: "../../resources/wolEj.png"
                     anchors.horizontalCenter: parent.horizontalCenter
                     smooth: true
                     width: 150

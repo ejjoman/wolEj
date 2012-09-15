@@ -34,10 +34,10 @@
 		<credential name="GRP::users"/>
 		<!--
 		<credential name="CAP::rm" />
-		<for path="var/lib/dpkg/info/wakeonlan.prerm" />
+		<for path="var/lib/dpkg/info/wolej.prerm" />
 		-->
 	</request>
 
-	<for path="/opt/wakeonlan/bin/wakeonlan" />
+	<for path="/opt/wolej/bin/wolej" />
 	<for path="applauncherd-launcher::/usr/bin/applauncherd.bin" id="" />
 </aegis>
