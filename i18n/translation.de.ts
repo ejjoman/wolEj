@@ -2,6 +2,58 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="de_DE">
 <context>
+    <name>AboutPage</name>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="22"/>
+        <source>Über Wake On Lan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="88"/>
+        <source>Version %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="105"/>
+        <source>Info:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="120"/>
+        <source>&lt;p&gt;Wake On Lan ist ein Tool mit welchem Sie Ihre LAN-Clients (PC, Server, Media Center, ...) einfach aufwecken können.&lt;br/&gt;Es erlaubt Ihnen, eine unlimitierte Anzahl von LAN-Clients zu konfigurieren. Außerdem können Sie konfigurierte Clients direkt von Ihrem Start-Bildschirm aus aufwecken.&lt;/p&gt;&lt;p&gt;Copyright © 2012 Michael Neufing&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="137"/>
+        <source>Projektseite:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="151"/>
+        <source>&lt;p&gt;Weitere Informationen und den Quelltext der Anwendung finden Sie unter:&lt;/p&gt;                          &lt;p&gt;&lt;a href=&quot;https://github.com/ejjoman/wolEj&quot;&gt;https://github.com/ejjoman/wolEj&lt;/a&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="172"/>
+        <source>Lizenz:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="186"/>
+        <source>AboutPage.LicenseText</source>
+        <translation>&lt;p&gt;Dieses Programm ist Freie Software: Sie können es unter den Bedingungen
+der GNU General Public License, wie von der Free Software Foundation,
+Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
+veröffentlichten Version, weiterverbreiten und/oder modifizieren.&lt;/p&gt;
+&lt;p&gt;Dieses Programm wird in der Hoffnung, dass es nützlich sein wird, aber
+OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
+Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+Siehe die GNU General Public License für weitere Details.&lt;/p&gt;
+&lt;p&gt;Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+Programm erhalten haben. Wenn nicht, siehe &lt;a href=&quot;http://www.gnu.org/licenses/&quot;&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</translation>
+    </message>
+</context>
+<context>
     <name>AddDeviceSheet</name>
     <message>
         <location filename="../qml/harmattan/AddDeviceSheet.qml" line="14"/>
@@ -135,27 +187,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/MainPage.qml" line="161"/>
+        <location filename="../qml/harmattan/MainPage.qml" line="162"/>
         <source>Keine Geräte vorhanden</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/MainPage.qml" line="197"/>
+        <location filename="../qml/harmattan/MainPage.qml" line="202"/>
         <source>Alle Geräte löschen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/MainPage.qml" line="203"/>
+        <location filename="../qml/harmattan/MainPage.qml" line="208"/>
         <source>Über Wake On Lan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/MainPage.qml" line="238"/>
+        <location filename="../qml/harmattan/MainPage.qml" line="243"/>
         <source>Gerät &apos;%1&apos; aufwecken</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/MainPage.qml" line="239"/>
+        <location filename="../qml/harmattan/MainPage.qml" line="244"/>
         <source>Gerät &apos;%1&apos; löschen</source>
         <translation type="unfinished"></translation>
     </message>

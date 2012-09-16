@@ -1,6 +1,8 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 import com.nokia.meego 1.1
+import "../plugins/com/ejjoman/meego" 1.0
+
 import "../plugins/com/ejjoman/meego/uiconstants.js" as UIConstants
 
 Page {
@@ -53,10 +55,13 @@ Page {
             id: wrapperCol
             anchors.leftMargin: UIConstants.DEFAULT_MARGIN
             anchors.rightMargin: UIConstants.DEFAULT_MARGIN
-            anchors.topMargin: 40
+            //anchors.topMargin: 40
             spacing: 40 //UIConstants.DEFAULT_MARGIN
 
-            anchors.fill: parent
+            //anchors.fill: parent
+
+            anchors.left: parent.left
+            anchors.right: parent.right
 
             Column {
                 anchors {
@@ -97,7 +102,7 @@ Page {
                         textColor: "#CCC"
                     }
 
-                    text: "Info:"
+                    text: qsTr("Info:")
                 }
 
                 Label {
@@ -112,7 +117,7 @@ Page {
                     }
                     wrapMode: Text.WordWrap
 
-                    text: "Wake On Lan ist eine Anwendung, welche es ermöglicht, LAN-Clients mit einem Magischen Paket zu starten.<br/>Copyright (C) 2012"
+                    text: qsTr("<p>Wake On Lan ist ein Tool mit welchem Sie Ihre LAN-Clients (PC, Server, Media Center, ...) einfach aufwecken können.<br/>Es erlaubt Ihnen, eine unlimitierte Anzahl von LAN-Clients zu konfigurieren. Außerdem können Sie konfigurierte Clients direkt von Ihrem Start-Bildschirm aus aufwecken.</p><p>Copyright © 2012 Michael Neufing</p>")
                 }
             }
 
@@ -129,7 +134,7 @@ Page {
                         textColor: "#CCC"
                     }
 
-                    text: "Projektseite:"
+                    text: qsTr("Projektseite:")
                 }
 
                 Label {
@@ -143,7 +148,44 @@ Page {
                         fontPixelSize: 24
                     }
 
-                    text: "https://github.com/ejjoman/WakeOnLan-Harmattan"
+                    text: qsTr("<p>Weitere Informationen und den Quelltext der Anwendung finden Sie unter:</p>\
+                          <p><a href=\"https://github.com/ejjoman/wolEj\">https://github.com/ejjoman/wolEj</a></p>")
+                    onLinkActivated: Qt.openUrlExternally(link);
+                }
+            }
+
+            Separator {}
+
+            Column {
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+
+                Label {
+                    platformStyle: LabelStyle {
+                        fontFamily: "Nokia Pure Text"
+                        fontPixelSize: 24
+                        textColor: "#CCC"
+                    }
+
+                    text: qsTr("Lizenz:")
+                }
+
+                Label {
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+
+                    platformStyle: LabelStyle {
+                        fontFamily: "Nokia Pure Text"
+                        fontPixelSize: 24
+                    }
+                    wrapMode: Text.WordWrap
+                    text: qsTr("AboutPage.LicenseText")
+
+                    onLinkActivated: Qt.openUrlExternally(link);
                 }
             }
         }

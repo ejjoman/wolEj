@@ -276,7 +276,6 @@ Page {
     }
 
     Component.onCompleted: {
-        //theme.inverted = true
-        theme.colorScheme = "blue4"
+        theme.colorScheme = "orange2"
     }
 }

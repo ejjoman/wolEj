@@ -2,6 +2,58 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="en" sourcelanguage="de_DE">
 <context>
+    <name>AboutPage</name>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="22"/>
+        <source>Über Wake On Lan</source>
+        <translation>About Wake On Lan</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="88"/>
+        <source>Version %1</source>
+        <translation>Version %1</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="105"/>
+        <source>Info:</source>
+        <translation>Info:</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="120"/>
+        <source>&lt;p&gt;Wake On Lan ist ein Tool mit welchem Sie Ihre LAN-Clients (PC, Server, Media Center, ...) einfach aufwecken können.&lt;br/&gt;Es erlaubt Ihnen, eine unlimitierte Anzahl von LAN-Clients zu konfigurieren. Außerdem können Sie konfigurierte Clients direkt von Ihrem Start-Bildschirm aus aufwecken.&lt;/p&gt;&lt;p&gt;Copyright © 2012 Michael Neufing&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Wake On Lan is a tool wich allows you to wake up your LAN-Clients (PC, Server, Media Center, ...) in an easy way.&lt;br/&gt;It allows you to configure an unlimited number of LAN-Clients. Furthermore you can wake up your configured LAN-Clients directly from your Launcher-Screen.&lt;/p&gt;&lt;p&gt;Copyright © 2012 Michael Neufing&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="137"/>
+        <source>Projektseite:</source>
+        <translation>Project home:</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="151"/>
+        <source>&lt;p&gt;Weitere Informationen und den Quelltext der Anwendung finden Sie unter:&lt;/p&gt;                          &lt;p&gt;&lt;a href=&quot;https://github.com/ejjoman/wolEj&quot;&gt;https://github.com/ejjoman/wolEj&lt;/a&gt;&lt;/p&gt;</source>
+        <translation>&lt;p&gt;More informations and the source-code of this application can be found here:&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/ejjoman/wolEj&quot;&gt;https://github.com/ejjoman/wolEj&lt;/a&gt;&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="186"/>
+        <source>AboutPage.LicenseText</source>
+        <translation>&lt;p&gt;This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.&lt;/p&gt;
+&lt;p&gt;This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.&lt;/p&gt;
+&lt;p&gt;You should have received a copy of the GNU General Public License
+along with this program. If not, see &lt;a href=&quot;http://www.gnu.org/licenses/&quot;&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/AboutPage.qml" line="172"/>
+        <source>Lizenz:</source>
+        <translation>License:</translation>
+    </message>
+</context>
+<context>
     <name>AddDeviceSheet</name>
     <message>
         <location filename="../qml/harmattan/AddDeviceSheet.qml" line="14"/>
@@ -71,7 +123,8 @@
     <message>
         <location filename="../qml/harmattan/DeviceCommandSheet.qml" line="24"/>
         <source>Der Befehl zum Ausführen kann dazu verwendet werden, um das Gerät &quot;%1&quot; mithilfe anderer Anwendungen aufzuwecken.&lt;br/&gt;&lt;br/&gt;Der Befehl kann beispielsweise:&lt;ul&gt;&lt;li&gt;In eigenen Shell-Scripten&lt;br/&gt;oder&lt;/li&gt;&lt;li&gt;Als Action in der App &lt;a href=&quot;http://store.ovi.com/content/216122&quot;&gt;ProfileMatic&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;verwendet werden.</source>
-        <translation>The execution-command may be used to wake up the device &apos;%1&apos; using other applications.&lt;br/&gt;&lt;br/&gt;The command can for example:&lt;ul&gt;&lt;li&gt;In own Shell-Scripts&lt;br/&gt;oder&lt;/li&gt;&lt;li&gt;As action in the App &lt;a href=&quot;http://store.ovi.com/content/216122&quot;&gt;ProfileMatic&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;be used.</translation>
+        <translation>The execution-command may be used to wake up the device &apos;%1&apos; using other applications.&lt;br/&gt;&lt;br/&gt;
+The command can be used for example in:&lt;ul&gt;&lt;li&gt;Own Shell-Scripts&lt;br/&gt;or&lt;/li&gt;&lt;li&gt;As action in the App &lt;a href=&quot;http://store.ovi.com/content/216122&quot;&gt;ProfileMatic&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
         <location filename="../qml/harmattan/DeviceCommandSheet.qml" line="30"/>
@@ -135,27 +188,27 @@
         <translation>Wake On Lan</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/MainPage.qml" line="161"/>
+        <location filename="../qml/harmattan/MainPage.qml" line="162"/>
         <source>Keine Geräte vorhanden</source>
         <translation>No devices present</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/MainPage.qml" line="197"/>
+        <location filename="../qml/harmattan/MainPage.qml" line="202"/>
         <source>Alle Geräte löschen</source>
         <translation>Remove all devices</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/MainPage.qml" line="203"/>
+        <location filename="../qml/harmattan/MainPage.qml" line="208"/>
         <source>Über Wake On Lan</source>
         <translation>About Wake On Lan</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/MainPage.qml" line="238"/>
+        <location filename="../qml/harmattan/MainPage.qml" line="243"/>
         <source>Gerät &apos;%1&apos; aufwecken</source>
         <translation>Wake up device &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/MainPage.qml" line="239"/>
+        <location filename="../qml/harmattan/MainPage.qml" line="244"/>
         <source>Gerät &apos;%1&apos; löschen</source>
         <translation>Remove device &apos;%1&apos;</translation>
     </message>

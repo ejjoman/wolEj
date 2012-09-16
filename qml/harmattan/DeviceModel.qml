@@ -59,16 +59,16 @@ ListModel {
     }
 
     function clearDevices() {
-//        __db().transaction(
-//                    function(tx) {
-//                        __ensureTables(tx);
-//                        tx.executeSql('DELETE FROM Devices');
-//                    });
-
         for (var i=0; i<count; i++) {
             var item = get(i);
-            deleteDevice(item.id);
+            removeStarter(item.id);
         }
+
+        __db().transaction(
+                            function(tx) {
+                                __ensureTables(tx);
+                                tx.executeSql('DELETE FROM Devices');
+                            });
 
         load();
     }
