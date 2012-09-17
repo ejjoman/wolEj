@@ -9,12 +9,14 @@
 #include <QSystemNetworkInfo>
 #include <meegotouch/MNotification>
 #include <QTranslator>
+#include <QTextStream>
 
 using namespace QtMobility;
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {   
     QScopedPointer<QApplication> app(createApplication(argc, argv));
+    QTextStream qout(stdout);
 
     QString locale = QLocale::system().name();
     QTranslator translator;
@@ -36,54 +38,51 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
             if (macIdx != -1 && arguments.count() >= macIdx+1)
                 mac = arguments.at(macIdx+1);
-        } else {
-            qDebug() << QObject::tr("Bitte MAC-Adresse angegeben") << endl;
+        }
+
+        if (mac == QString::null) {
+            qout << QObject::tr("Bitte MAC-Adresse angegeben") << endl;
             return 1;
-        }
+        } else {
+            QString devName = QString::null;
 
-        QString devName = QString::null;
-        if (mac != QString::null) {
-            int nameIdx = -1;
-
-            if (arguments.contains("-devicename"))
-                nameIdx = arguments.indexOf("-devicename");
-
-            if (nameIdx != -1 && arguments.count() >= nameIdx+1)
+            if (arguments.contains("-devicename")) {
+                int nameIdx = arguments.indexOf("-devicename");
                 devName = arguments.at(nameIdx+1);
-        }
+            }
 
-        if (mac != QString::null) {
             QSystemNetworkInfo *i = new QSystemNetworkInfo();
             QSystemNetworkInfo::NetworkStatus s = i->networkStatus(QSystemNetworkInfo::WlanMode);
 
-            QString message;
-            QString image;
-
-            int retCode = 0;
+            bool success;
 
             if (s == QSystemNetworkInfo::Connected) {
                 QmlWakeOnLan *w = new QmlWakeOnLan();
-                w->sendMagicPacket(mac, ':');
+                w->sendMagicPacket(mac);
 
-                image = "icon-m-transfer-done";
-
-                if (devName != QString::null)
-                    message = QObject::tr("Magisches Paket wurde an %1 gesendet").arg(devName);
-                else
-                    message = QObject::tr("Magisches Paket wurde gesendet");
+                success = true;
             } else {
-                image = "icon-m-transfer-error";
-                message = QObject::tr("Das magische Paket konnte nicht gesendet werden. (Keine Verbindung mit WLAN)");
-                retCode = 1;
+                success = false;
             }
 
             if (arguments.contains("-showbanner")) {
-                MNotification notification(MNotification::DeviceEvent, "", message);
-                notification.setImage(image);
-                notification.publish();
+                QString message;
+
+                if (success) {
+                    if (devName != QString::null)
+                        message = QObject::tr("Magisches Paket wurde an %1 gesendet").arg(devName);
+                    else
+                        message = QObject::tr("Magisches Paket wurde gesendet");
+                } else {
+                    message = QObject::tr("Das magische Paket konnte nicht gesendet werden. (Keine Verbindung mit WLAN)");
+                }
+
+                MNotification *notification = new MNotification(MNotification::DeviceEvent, QString::null, message);
+                notification->setImage((success ? "icon-m-transfer-done" : "icon-m-transfer-error"));
+                notification->publish();
             }
 
-            return retCode;
+            return (success ? 0 : 1);
         }
     }
 

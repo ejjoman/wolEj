@@ -84,7 +84,11 @@ PageStackWindow {
 
         function send(macAddress, macGroupSeperator, deviceName) {
             if (wlanInfo.networkStatus == "Connected") {
-                wakeOnLan.sendMagicPacket(macAddress, macGroupSeperator);
+                if (wakeOnLan.sendMagicPacket(macAddress)) {
+
+                } else {
+                    console.debug("Fehler: " + wakeOnLan.getError())
+                }
 
                 if (showInfoBanner) {
                     infoBanner.text = qsTr("Magisches Paket wurde gesendet")
