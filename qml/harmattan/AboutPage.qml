@@ -21,6 +21,7 @@ Page {
 
         title: qsTr("Über Wake On Lan")
 
+        /* Removed due to Nokia Store QA (WTF?!)
         Image {
             anchors {
                 rightMargin: UIConstants.MARGIN_XLARGE
@@ -37,6 +38,7 @@ Page {
                 }
             }
         }
+        */
     }
 
     Flickable {

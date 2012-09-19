@@ -21,10 +21,13 @@ ButtonRow {
     property bool showParseMacAddressButton: false
     property string macGroupSeparator: ":"
     property string selectedMacAddress: ''
+    property string emptyGroupPlaceholder: "..."
+
+    property variant __groupButtons: [group1, group2, group3, group4, group5, group6]
 
     function reset() {
-        for (var i=0; i<groupButtons.length; i++)
-            groupButtons[i].reset();
+        for (var i=0; i<__groupButtons.length; i++)
+            __groupButtons[i].reset();
     }
 
     function parseMac(mac) {
@@ -36,7 +39,7 @@ ButtonRow {
         var groups = newMac.split(root.macGroupSeparator);
 
         for (var i=0; i<groups.length; i++) {
-            var groupButton = root.groupButtons[i];
+            var groupButton = root.__groupButtons[i];
             groupButton.groupValue = getUpperCaseString(groups[i]);
         }
 
@@ -75,8 +78,8 @@ ButtonRow {
 
         var groups = new Array();
 
-        for (var i=0; i<root.groupButtons.length; i++)
-            groups.push(root.groupButtons[i].groupValue)
+        for (var i=0; i<root.__groupButtons.length; i++)
+            groups.push(root.__groupButtons[i].groupValue)
 
         root.selectedMacAddress = groups.join(root.macGroupSeparator)
     }
@@ -87,6 +90,7 @@ ButtonRow {
         groupIndex: 0
         model: hexDigits
         onGroupValueChanged: root.updateSelectedMacAddress()
+        emptyGroupPlaceholder: root.emptyGroupPlaceholder
     }
 
     SelectMacAdressGroupButton {
@@ -95,6 +99,7 @@ ButtonRow {
         groupIndex: 1
         model: hexDigits
         onGroupValueChanged: root.updateSelectedMacAddress()
+        emptyGroupPlaceholder: root.emptyGroupPlaceholder
     }
 
     SelectMacAdressGroupButton {
@@ -103,6 +108,7 @@ ButtonRow {
         groupIndex: 2
         model: hexDigits
         onGroupValueChanged: root.updateSelectedMacAddress()
+        emptyGroupPlaceholder: root.emptyGroupPlaceholder
     }
 
     SelectMacAdressGroupButton {
@@ -111,6 +117,7 @@ ButtonRow {
         groupIndex: 3
         model: hexDigits
         onGroupValueChanged: root.updateSelectedMacAddress()
+        emptyGroupPlaceholder: root.emptyGroupPlaceholder
     }
 
     SelectMacAdressGroupButton {
@@ -119,6 +126,7 @@ ButtonRow {
         groupIndex: 4
         model: hexDigits
         onGroupValueChanged: root.updateSelectedMacAddress()
+        emptyGroupPlaceholder: root.emptyGroupPlaceholder
     }
 
     SelectMacAdressGroupButton {
@@ -127,13 +135,12 @@ ButtonRow {
         groupIndex: 5
         model: hexDigits
         onGroupValueChanged: root.updateSelectedMacAddress()
+        emptyGroupPlaceholder: root.emptyGroupPlaceholder
     }
-
-    property variant groupButtons: [group1, group2, group3, group4, group5, group6]
 
     Button {
         visible: root.showParseMacAddressButton
-        text: "Einfügen"
+        iconSource: "image://theme/icon-m-common-search" + (theme.inverted ? "-inverse" : "")
         onClicked: {
             root.openParseMacAddressQueryDialog()
         }

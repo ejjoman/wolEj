@@ -40,9 +40,14 @@ ExtendedSheet {
                 anchors.leftMargin: UIConstants.DEFAULT_MARGIN
                 anchors.rightMargin: UIConstants.DEFAULT_MARGIN
 
-                spacing: 40 //UIConstants.DEFAULT_MARGIN
+                spacing: UIConstants.DEFAULT_MARGIN
 
-                anchors.fill: parent
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }
+
+                //anchors.fill: parent
 
                 Row {
                     width: parent.width
@@ -50,18 +55,22 @@ ExtendedSheet {
                     Column {
                         width: parent.width
 
-                        Label {
-                            anchors {
-                                left: parent.left
-                            }
-
-                            platformStyle: LabelStyle {
-                                fontFamily: "Nokia Pure Text Light"
-                                fontPixelSize: 22
-                            }
-
-                            text: qsTr("Name des Geräts")
+                        SectionHeading {
+                            section: "Name des Geräts"
                         }
+
+//                        Label {
+//                            anchors {
+//                                left: parent.left
+//                            }
+
+//                            platformStyle: LabelStyle {
+//                                fontFamily: "Nokia Pure Text Light"
+//                                fontPixelSize: 22
+//                            }
+
+//                            text: qsTr("Name des Geräts")
+//                        }
 
                         TextField {
                             id: deviceNameTextField
@@ -71,7 +80,7 @@ ExtendedSheet {
                                 right: parent.right
                             }
 
-                            placeholderText: qsTr("Gerätename eingeben")
+                            placeholderText: qsTr("Name des Geräts")
 
                             onTextChanged: root.updateAcceptButton()
                         }
@@ -84,97 +93,166 @@ ExtendedSheet {
                     Column {
                         width: parent.width
 
-                        Label {
-                            anchors {
-                                left: parent.left
-                            }
+//                        Label {
+//                            anchors {
+//                                left: parent.left
+//                            }
 
-                            platformStyle: LabelStyle {
-                                fontFamily: "Nokia Pure Text Light"
-                                fontPixelSize: 22
-                            }
+//                            platformStyle: LabelStyle {
+//                                fontFamily: "Nokia Pure Text Light"
+//                                fontPixelSize: 22
+//                            }
 
-                            text: qsTr("MAC-Adresse des Geräts")
+//                            text: qsTr("MAC-Adresse des Geräts")
+//                        }
+
+                        SectionHeading {
+                            section: qsTr("MAC-Adresse des Geräts")
                         }
 
-                        SelectMacAdressButtonRow {
-                            id: macAdressButtonRow
+                        Column {
+                            spacing: UIConstants.DEFAULT_MARGIN
 
-                            onValidSelectionChanged: {
-                                console.debug(macAdressButtonRow.validSelection)
-                                root.updateAcceptButton();
-                            }
-
-                            onOpenParseMacAddressQueryDialog: parseMacAddressQueryDialog.open()
-                        }
-
-                    }
-                }
-
-                Row {
-                    width: parent.width
-
-                    Column {
-                        width: parent.width
-
-                        Label {
-                            anchors {
-                                left: parent.left
-                            }
-
-                            platformStyle: LabelStyle {
-                                fontFamily: "Nokia Pure Text Light"
-                                fontPixelSize: 22
-                            }
-
-                            text: qsTr("... oder MAC aus Zwischenablage einfügen")
-                        }
-
-                        Button {
-                            id: parseFromClipboard
                             anchors {
                                 left: parent.left
                                 right: parent.right
                             }
 
-                            text: qsTr("Einfügen")
-                            onClicked: {
-                                parseMacAddressQueryDialog.open()
+                            Label {
+                                anchors {
+                                    left: parent.left
+                                    right: parent.right
+                                }
+
+                                platformStyle: LabelStyle {
+                                    fontFamily: "Nokia Pure Text Light"
+                                    fontPixelSize: UIConstants.FONT_SMALL
+                                }
+                                wrapMode: Text.WordWrap
+                                color: !theme.inverted ? UIConstants.COLOR_SECONDARY_FOREGROUND : UIConstants.COLOR_INVERTED_SECONDARY_FOREGROUND
+
+                                text: qsTr("Die MAC-Adresse kann entweder manuell eingegeben, oder aus einer anderen Anwendung kopiert und mit dem &nbsp;&nbsp;<img src=\"%1\" /> -Button eingefügt werden.").arg("../images/icon-m-common-search-cropped" + (theme.inverted ? "-inverse" : "") + ".png")
+                                textFormat: Text.RichText
+                            }
+
+                            SelectMacAdressButtonRow {
+                                id: macAdressButtonRow
+                                showParseMacAddressButton: true
+                                onValidSelectionChanged: {
+                                    console.debug(macAdressButtonRow.validSelection)
+                                    root.updateAcceptButton();
+                                }
+
+                                onOpenParseMacAddressQueryDialog: parseMacAddressQueryDialog.open()
                             }
                         }
-
                     }
                 }
 
-//                Row {
-//                    //anchors.left: parent.left
-//                    //anchors.right: parent.right
+                SectionHeading {
+                    section: "Wake On Lan über Internet"
+                }
 
-//                    width: parent.width
+                Row {
+                    width: parent.width
 
-//                    Label {
-//                        anchors {
-//                            left: parent.left
-//                            verticalCenter: parent.verticalCenter
-//                        }
+                    Label {
+                        height: enableWakeOnWan.height
+                        verticalAlignment: Text.AlignVCenter
+                        font {
+                            pixelSize: UIConstants.LIST_TILE_SIZE
+                            bold: true
+                        }
 
-//                        platformStyle: LabelStyle {
-//                            fontFamily: "Nokia Pure Text Light"
-//                            fontPixelSize: 22
-//                        }
+                        color: (theme.inverted ? UIConstants.LIST_TITLE_COLOR_INVERTED : UIConstants.LIST_TITLE_COLOR)
 
-//                        text: "Als standard festlegen"
-//                    }
+                        text: qsTr("Wake On Lan über Internet")
+                    }
 
-//                    Switch {
-//                        id: defaultDeviceSwitch
+                    Switch {
+                        id: enableWakeOnWan
+                        anchors.right: parent.right
+                        anchors.rightMargin: UIConstants.MARGIN_XLARGE
+                    }
+                }
 
-//                        anchors {
-//                            right: parent.right
-//                            verticalCenter: parent.verticalCenter
-//                        }
-//                    }
-//                }
+                Column {
+                    id: wowFieldsWrapper
+
+                    enabled: enableWakeOnWan.checked
+
+                    spacing: UIConstants.DEFAULT_MARGIN
+                    opacity: (enableWakeOnWan.checked ? 1 : 0.3)
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
+
+                    SectionHeading {
+                        section: qsTr("Regel")
+                    }
+
+                    ButtonColumn {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                        }
+
+                        Button {
+                            text: "Immer über Internet senden"
+                        }
+
+                        Button {
+                            text: "Bei mobiler Datenverbindung"
+                        }
+
+                        Button {
+                            text: "Nur, wenn nicht in folgenden WLANs"
+                        }
+                    }
+
+                    SectionHeading {
+                        section: qsTr("WLAN")
+                    }
+
+                    Row {
+                        width: parent.width
+                        Column {
+                            spacing: UIConstants.DEFAULT_MARGIN
+
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                            }
+
+                            Label {
+                                anchors {
+                                    left: parent.left
+                                    right: parent.right
+                                }
+
+                                platformStyle: LabelStyle {
+                                    fontFamily: "Nokia Pure Text Light"
+                                    fontPixelSize: UIConstants.FONT_SMALL
+                                }
+                                wrapMode: Text.WordWrap
+                                color: !theme.inverted ? UIConstants.COLOR_SECONDARY_FOREGROUND : UIConstants.COLOR_INVERTED_SECONDARY_FOREGROUND
+
+                                text: qsTr("Das magische Paket wird über das Internet gesendet, wenn sich das Gerät <b>nicht</b> in dem angegebenen WLAN befindet.")
+                                textFormat: Text.RichText
+                            }
+
+                            ExtendedListItem {
+                                title: "WLANs"
+                                subTitle: (wlanSelector.selectedIndexes.length == 0 ? "Bitte wählen..." : "...")
+
+                                onClicked: wlanSelector.open()
+                            }
+                        }
+                    }
+                }
+
+
             }
         }
 
@@ -192,9 +270,32 @@ ExtendedSheet {
         z: 2
     }
 
+    MultiSelectionDialog {
+        id: wlanSelector
+        model: wlanModel
+
+        acceptButtonText: "Okay"
+    }
+
+    ListModel {
+        id: wlanModel
+
+        Component.onCompleted: {
+            var wifis = new Array();
+            wifis = netMan.getWifis();
+
+            for (var i=0; i<wifis.length; i++)
+                wlanModel.append({'name': wifis[i]});
+        }
+    }
+
+    NetworkConfigurationManager {
+        id: netMan
+    }
+
     QueryDialog {
         id: parseMacAddressQueryDialog
-        icon: "../images/globe.png"
+        icon: "image://theme/icon-l-search" //"../images/globe.png"
         titleText: qsTr("MAC-Adresse einfügen")
         message: qsTr("Kopiere die MAC-Adresse aus einer anderen Anwendung und drücke 'Einfügen'")
         acceptButtonText: qsTr("Einfügen")

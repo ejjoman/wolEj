@@ -5,6 +5,7 @@
 #include "qmlwakeonlan.h"
 #include "qmlfilesystemadapter.h"
 #include "qmlsystembanneradapter.h"
+#include "qmlnetworkconfigurationmanageradapter.h"
 
 #include <QSystemNetworkInfo>
 #include <meegotouch/MNotification>
@@ -90,6 +91,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<QmlWakeOnLan>("com.ejjoman.plugins", 1, 0, "WakeOnLan");
     qmlRegisterType<QmlFilesystemAdapter>("com.ejjoman.plugins", 1, 0, "Filesystem");
     qmlRegisterType<QmlSystembannerAdapter>("com.ejjoman.plugins", 1, 0, "Systembanner");
+    qmlRegisterType<QmlNetworkConfigurationManagerAdapter>("com.ejjoman.plugins", 1, 0, "NetworkConfigurationManager");
 
     QmlApplicationViewer viewer;
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);

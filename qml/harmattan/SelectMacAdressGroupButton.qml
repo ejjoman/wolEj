@@ -5,13 +5,15 @@ import com.nokia.extras 1.1
 
 Button {
     id: root
-    text: "xx" //(root.groupIndex + 1).toString()
+    text: "" //(root.groupIndex + 1).toString()
 
     property int groupIndex: 0
     property ListModel model: null
 
     property bool validSelection: false
     property string groupValue: ""
+
+    property string emptyGroupPlaceholder: "..."
 
     function reset() {
         root.groupValue = "";
@@ -23,7 +25,7 @@ Button {
 
     onGroupValueChanged: {
         if (groupValue === "") {
-            root.text = "xx" // (root.groupIndex + 1).toString()
+            root.text = root.emptyGroupPlaceholder // (root.groupIndex + 1).toString()
 
             hexDigit1.selectedIndex = 0
             hexDigit2.selectedIndex = 0
@@ -37,8 +39,6 @@ Button {
 
             root.validSelection = true;
         }
-
-
     }
 
     function getIndexByValue(value) {
@@ -72,5 +72,10 @@ Button {
 
             root.groupValue = hex1 + hex2;
         }
+    }
+
+    Component.onCompleted: {
+        if (root.text === "")
+            root.text = root.emptyGroupPlaceholder
     }
 }

@@ -44,7 +44,8 @@ SOURCES += main.cpp \
 	qmlclipboardadapter.cpp \
 	qmlwakeonlan.cpp \
     qmlfilesystemadapter.cpp \
-    qmlsystembanneradapter.cpp
+    qmlsystembanneradapter.cpp \
+    qmlnetworkconfigurationmanageradapter.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -69,7 +70,8 @@ HEADERS += \
 	qmlclipboardadapter.h \
 	qmlwakeonlan.h \
     qmlfilesystemadapter.h \
-    qmlsystembanneradapter.h
+    qmlsystembanneradapter.h \
+    qmlnetworkconfigurationmanageradapter.h
 
 RESOURCES += \
     resources.qrc

@@ -236,12 +236,31 @@ Page {
                     deleteDeviceQueryDialog.open()
                 }
             }
+
+            MenuItem {
+                id: moveDeviceUpMenuItem
+                text: "Nach oben verschieben"
+
+                onClicked: devices.moveUp(devices.getSelectedItem());
+            }
+
+            MenuItem {
+                id: moveDeviceDownMenuItem
+                text: "Nach unten verschieben"
+
+                onClicked: devices.moveDown(devices.getSelectedItem());
+            }
         }
 
         onStatusChanged: {
             if (deviceContextMenu.status === DialogStatus.Opening) {
-                wakeDeviceMenuItem.text = qsTr("Gerät '%1' aufwecken").arg(devices.getSelectedItem().Name)
-                deleteDeviceMenuItem.text = qsTr("Gerät '%1' löschen").arg(devices.getSelectedItem().Name)
+                var item = devices.getSelectedItem()
+
+                wakeDeviceMenuItem.text = qsTr("Gerät '%1' aufwecken").arg(item.Name)
+                deleteDeviceMenuItem.text = qsTr("Gerät '%1' löschen").arg(item.Name)
+
+                moveDeviceDownMenuItem.enabled = (item.index < devices.count - 1)
+                moveDeviceUpMenuItem.enabled = (item.index > 0)
             }
         }
     }

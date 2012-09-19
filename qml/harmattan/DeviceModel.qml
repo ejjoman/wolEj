@@ -2,43 +2,88 @@
 import QtQuick 1.1
 import com.nokia.meego 1.0
 
+import "DatabaseMigrator.js" as M
+
 ListModel {
-    id: deviceModel
+    id: root
 
     property int selectedIndex: -1
 
     function __db() {
-        return openDatabaseSync("wolEjDB", "1.0", "wolEj Database", 1000000)
+        var db = openDatabaseSync("wolEjDB", "", "wolEj Database", 1000000)
+
+        var migrator = new M.Migrator(db);
+
+        migrator.migration(1, function(tx){
+            var createDevicesTable = 'CREATE TABLE IF NOT EXISTS "Devices" ("ID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "Name" TEXT NOT NULL, "MAC" TEXT NOT NULL)';
+            tx.executeSql(createDevicesTable);
+
+            console.log("Database: Magrated to Version 1.")
+        });
+
+        migrator.migration(2, function(tx){
+            tx.executeSql('ALTER TABLE Devices ADD COLUMN "Ordering" INTEGER NOT NULL DEFAULT 0');
+            tx.executeSql('ALTER TABLE Devices ADD COLUMN "WifiName" TEXT');
+            tx.executeSql('ALTER TABLE Devices ADD COLUMN "WowHost" TEXT');
+            tx.executeSql('ALTER TABLE Devices ADD COLUMN "WowPort" INTEGER');
+
+            console.log("Database: Magrated to Version 2.")
+        });
+
+        migrator.doIt();
+
+        return db;
     }
 
-    function __ensureTables(tx) {
-        var createDevicesTable = 'CREATE TABLE IF NOT EXISTS "Devices" ("ID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "Name" TEXT NOT NULL, "MAC" TEXT NOT NULL)';
-        tx.executeSql(createDevicesTable);
+    function saveOrdering() {
+        __db().transaction(function(tx) {
+            for (var i=0; i<root.count; i++) {
+                var item = root.get(i);
+                tx.executeSql("UPDATE Devices SET Ordering=? WHERE ID=?", [i, item.id]);
+            }
+        });
+    }
+
+    function moveUp(item) {
+        var index = item.index;
+
+        if (index > 0)
+            root.move(index, index-1, 1);
+
+        root.saveOrdering();
+    }
+
+    function moveDown(item) {
+        var index = item.index;
+
+        if (index < root.count - 1)
+            root.move(index, index+1, 1);
+
+        root.saveOrdering();
     }
 
     function load() {
-        __db().transaction(
-                    function(tx) {
-                        __ensureTables(tx);
+        __db().transaction(function(tx) {
+            var rs = tx.executeSql("SELECT * FROM Devices ORDER BY Ordering");
+            root.clear();
 
-                        var rs = tx.executeSql("SELECT * FROM Devices");
-                        deviceModel.clear();
+            if (rs.rows.length > 0)
+                for (var i=0; i<rs.rows.length; i++)
+                    root.append({
+                                    id: rs.rows.item(i).ID,
+                                    Name: rs.rows.item(i).Name,
+                                    MAC: rs.rows.item(i).MAC,
+                                    hasStarter: hasStarter(rs.rows.item(i).ID),
+                                    Ordering: rs.rows.item(i).Ordering,
+                                    index: i
+                                })
 
-                        if (rs.rows.length > 0)
-                            for (var i=0; i<rs.rows.length; i++)
-                                deviceModel.append({
-                                                       id: rs.rows.item(i).ID,
-                                                       Name: rs.rows.item(i).Name,
-                                                       MAC: rs.rows.item(i).MAC,
-                                                       hasStarter: hasStarter(rs.rows.item(i).ID)
-                                                   })
-
-                    });
+        });
     }
 
     function deviceExists(mac) {
-        for (var i=0; i<deviceModel.count; i++) {
-            var item = deviceModel.get(i);
+        for (var i=0; i<root.count; i++) {
+            var item = root.get(i);
             if (item.MAC === mac)
                 return true;
         }
@@ -48,11 +93,9 @@ ListModel {
 
     function addDevice(deviceName, mac) {
         if (!deviceExists(mac)) {
-            __db().transaction(
-                        function(tx) {
-                            __ensureTables(tx);
-                            tx.executeSql('INSERT INTO Devices (Name, MAC) VALUES (?, ?)', [deviceName, mac]);
-                        });
+            __db().transaction(function(tx) {
+                tx.executeSql('INSERT INTO Devices (Name, MAC) VALUES (?, ?)', [deviceName, mac]);
+            });
 
             load();
         }
@@ -64,24 +107,20 @@ ListModel {
             removeStarter(item.id);
         }
 
-        __db().transaction(
-                            function(tx) {
-                                __ensureTables(tx);
-                                tx.executeSql('DELETE FROM Devices');
-                            });
+        __db().transaction(function(tx) {
+            tx.executeSql('DELETE FROM Devices');
+        });
 
         load();
     }
 
     function deleteDevice(id) {
-        __db().transaction(
-                    function(tx) {
-                        __ensureTables(tx);
-                        tx.executeSql('DELETE FROM Devices WHERE ID=?', [id]);
-                    });
+        __db().transaction(function(tx) {
+            tx.executeSql('DELETE FROM Devices WHERE ID=?', [id]);
+        });
 
-        if (deviceModel.selectedIndex === id)
-            deviceModel.selectedIndex = -1;
+        if (root.selectedIndex === id)
+            root.selectedIndex = -1;
 
         removeStarter(id);
 
@@ -89,8 +128,8 @@ ListModel {
     }
 
     function getById(id){
-        for (var i=0; i < deviceModel.count; i++) {
-            var item = deviceModel.get(i);
+        for (var i=0; i < root.count; i++) {
+            var item = root.get(i);
 
             if (item.id === id)
                 return item;
@@ -100,10 +139,10 @@ ListModel {
     }
 
     function getSelectedItem() {
-        if (deviceModel.selectedIndex === -1)
+        if (root.selectedIndex === -1)
             return null;
 
-        return deviceModel.get(deviceModel.selectedIndex)
+        return root.get(root.selectedIndex)
     }
 
     function hasStarter(id) {
@@ -124,12 +163,12 @@ ListModel {
         } else {
             var fileContents = fileSystem.readFromFile("/opt/wolEj/resources/mask.desktop")
 
-            fileContents = fileContents.replace(/\$MAC/g, deviceModel.getById(id).MAC);
-            fileContents = fileContents.replace(/\$NAME/g, deviceModel.getById(id).Name);
+            fileContents = fileContents.replace(/\$MAC/g, root.getById(id).MAC);
+            fileContents = fileContents.replace(/\$NAME/g, root.getById(id).Name);
 
             return fileSystem.writeToFile("/home/user/.local/share/applications/wolEj_" + id + ".desktop", fileContents)
         }
     }
 
-    Component.onCompleted: load()
+    Component.onCompleted: root.load()
 }
