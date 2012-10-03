@@ -1,3 +1,18 @@
+wolej (0.1.1) unstable; urgency=low
+  * Donate version
+
+ -- Michael Neufing <m.neufing@yahoo.de>  Wed, 03 Oct 2012 08:59:43 +0200
+
+wolej (0.1.0) unstable; urgency=low
+  * Just changed version number
+
+ -- Michael Neufing <m.neufing@yahoo.de>  Wed, 03 Oct 2012 08:43:45 +0200
+
+wolej (0.0.2) unstable; urgency=low
+  * Minor bug fix on uninstalling this app (Homescreen launchers would not be deleted)
+
+ -- Michael Neufing <m.neufing@yahoo.de>  Fri, 28 Sep 2012 19:15:24 +0200
+
 wolej (0.0.1) unstable; urgency=low
 
   * Initial Release.
