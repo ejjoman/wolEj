@@ -1,2 +1,4 @@
 .directory
 ./*/.directory
+*.pro.user
+*.orig
