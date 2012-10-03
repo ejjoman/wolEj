@@ -5,7 +5,8 @@
 #include "qmlwakeonlan.h"
 #include "qmlfilesystemadapter.h"
 #include "qmlsystembanneradapter.h"
-#include "qmlnetworkconfigurationmanageradapter.h"
+#include "wifilist.h"
+#include "wifimodel.h"
 
 #include <QSystemNetworkInfo>
 #include <meegotouch/MNotification>
@@ -22,8 +23,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QString locale = QLocale::system().name();
     QTranslator translator;
 
-    // fall back to using English translation, if one specific to the current
-    // setting of the device is not available.
     if (!(translator.load("translation."+locale, ":/")))
         translator.load("translation.en", ":/");
 
@@ -90,12 +89,22 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<QmlClipboardAdapter>("com.ejjoman.plugins", 1, 0, "Clipboard");
     qmlRegisterType<QmlWakeOnLan>("com.ejjoman.plugins", 1, 0, "WakeOnLan");
     qmlRegisterType<QmlFilesystemAdapter>("com.ejjoman.plugins", 1, 0, "Filesystem");
-    qmlRegisterType<QmlSystembannerAdapter>("com.ejjoman.plugins", 1, 0, "Systembanner");
-    qmlRegisterType<QmlNetworkConfigurationManagerAdapter>("com.ejjoman.plugins", 1, 0, "NetworkConfigurationManager");
 
     QmlApplicationViewer viewer;
+    QDeclarativeContext *context = viewer.rootContext();
+
+    WifiModel *model = new WifiModel();
+    context->setContextProperty("wifiModel", model);
+
+    WifiList list;
+    context->setContextProperty("wifiList", QVariant::fromValue(list.getWifiList()));
+
+    QString homePath = QDir::homePath();
+    context->setContextProperty("homePath", homePath);
+
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationLockPortrait);
     viewer.setMainQmlFile(QLatin1String("qml/harmattan/main.qml"));
+
     viewer.showExpanded();
 
     qInstallMsgHandler(0);

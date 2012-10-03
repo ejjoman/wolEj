@@ -45,7 +45,8 @@ SOURCES += main.cpp \
 	qmlwakeonlan.cpp \
     qmlfilesystemadapter.cpp \
     qmlsystembanneradapter.cpp \
-    qmlnetworkconfigurationmanageradapter.cpp
+    wifilist.cpp \
+    wifimodel.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -71,7 +72,8 @@ HEADERS += \
 	qmlwakeonlan.h \
     qmlfilesystemadapter.h \
     qmlsystembanneradapter.h \
-    qmlnetworkconfigurationmanageradapter.h
+    wifilist.h \
+    wifimodel.h
 
 RESOURCES += \
     resources.qrc

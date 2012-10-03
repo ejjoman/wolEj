@@ -1,3 +1,8 @@
+wolej (0.0.2) unstable; urgency=low
+  * Minor bug fix on uninstalling this app (Homescreen launchers would not be deleted)
+
+ -- Michael Neufing <m.neufing@yahoo.de>  Fri, 28 Sep 2012 19:15:24 +0200
+
 wolej (0.0.1) unstable; urgency=low
 
   * Initial Release.

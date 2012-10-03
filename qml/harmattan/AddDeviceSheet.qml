@@ -135,6 +135,99 @@ ExtendedSheet {
                                 textFormat: Text.RichText
                             }
 
+                            Row {
+                                anchors {
+                                    left: parent.left
+                                    right: parent.right
+                                }
+
+                                TextField {
+                                    id: macGroup1
+                                    inputMask: "HH"
+                                    inputMethodHints: Qt.ImhUppercaseOnly | Qt.ImhNoPredictiveText
+                                    maximumLength: 2
+                                    onTextChanged: {
+                                        if (text.length == 2)
+                                            macGroup2.forceActiveFocus()
+                                    }
+
+                                    width: parent.width / 6
+                                }
+
+                                TextField {
+                                    id: macGroup2
+                                    inputMask: "HH"
+                                    inputMethodHints: Qt.ImhUppercaseOnly | Qt.ImhNoPredictiveText
+                                    maximumLength: 2
+                                    onTextChanged: {
+                                        if (text.length == 2)
+                                            macGroup3.forceActiveFocus()
+                                        else if (text.length == 0)
+                                            macGroup1.forceActiveFocus()
+                                    }
+
+                                    width: parent.width / 6
+                                }
+
+                                TextField {
+                                    id: macGroup3
+                                    inputMask: "HH"
+                                    inputMethodHints: Qt.ImhUppercaseOnly | Qt.ImhNoPredictiveText
+                                    maximumLength: 2
+                                    onTextChanged: {
+                                        if (text.length == 2)
+                                            macGroup4.forceActiveFocus()
+                                        else if (text.length == 0)
+                                            macGroup2.forceActiveFocus()
+                                    }
+
+                                    width: parent.width / 6
+                                }
+
+                                TextField {
+                                    id: macGroup4
+                                    inputMask: "HH"
+                                    inputMethodHints: Qt.ImhUppercaseOnly | Qt.ImhNoPredictiveText
+                                    maximumLength: 2
+                                    onTextChanged: {
+                                        if (text.length == 2)
+                                            macGroup5.forceActiveFocus()
+                                        else if (text.length == 0)
+                                            macGroup3.forceActiveFocus()
+                                    }
+
+                                    width: parent.width / 6
+                                }
+
+                                TextField {
+                                    id: macGroup5
+                                    inputMask: "HH"
+                                    inputMethodHints: Qt.ImhUppercaseOnly | Qt.ImhNoPredictiveText
+                                    maximumLength: 2
+                                    onTextChanged: {
+                                        if (text.length == 2)
+                                            macGroup6.forceActiveFocus()
+                                        else if (text.length == 0)
+                                            macGroup4.forceActiveFocus()
+                                    }
+
+                                    width: parent.width / 6
+                                }
+
+                                TextField {
+                                    id: macGroup6
+                                    inputMask: "HH"
+                                    inputMethodHints: Qt.ImhUppercaseOnly | Qt.ImhNoPredictiveText
+                                    maximumLength: 2
+                                    onTextChanged: {
+                                        if (text.length == 0)
+                                            macGroup5.forceActiveFocus()
+                                    }
+
+                                    width: parent.width / 6
+                                }
+                            }
+
                             SelectMacAdressButtonRow {
                                 id: macAdressButtonRow
                                 showParseMacAddressButton: true
@@ -207,7 +300,7 @@ ExtendedSheet {
                         }
 
                         Button {
-                            text: "Nur, wenn nicht in folgenden WLANs"
+                            text: "Nur, wenn nicht in folgenden Netzen"
                         }
                     }
 
@@ -243,8 +336,9 @@ ExtendedSheet {
                             }
 
                             ExtendedListItem {
-                                title: "WLANs"
-                                subTitle: (wlanSelector.selectedIndexes.length == 0 ? "Bitte wählen..." : "...")
+                                id: wifiListSelector
+                                title: "Netze"
+                                subTitle: "Netze wählen..."
 
                                 onClicked: wlanSelector.open()
                             }
@@ -272,25 +366,29 @@ ExtendedSheet {
 
     MultiSelectionDialog {
         id: wlanSelector
-        model: wlanModel
+        model: wifiList
 
-        acceptButtonText: "Okay"
-    }
+        acceptButtonText: qsTr("Übernehmen")
+        titleText: qsTr("Netze wählen")
 
-    ListModel {
-        id: wlanModel
+        onSelectedIndexesChanged: {
+            if (wlanSelector.selectedIndexes.length > 0) {
+                var s = "Test.. ";
 
-        Component.onCompleted: {
-            var wifis = new Array();
-            wifis = netMan.getWifis();
+                for (var i=0; i<wlanSelector.selectedIndexes.length; i++) {
+                    s += wifiList[i];
 
-            for (var i=0; i<wifis.length; i++)
-                wlanModel.append({'name': wifis[i]});
+                    if (i < wlanSelector.selectedIndexes.length -1)
+                        s += ", "
+                }
+
+                wifiListSelector.subTitle = s;
+            } else {
+                wifiListSelector.subTitle = "Netze wählen..."
+            }
+
+
         }
-    }
-
-    NetworkConfigurationManager {
-        id: netMan
     }
 
     QueryDialog {
@@ -314,6 +412,10 @@ ExtendedSheet {
 
             infoBanner.show()
         }
+    }
+
+    Component.onCompleted: {
+        wifiModel.deleteLater()
     }
 }
 
