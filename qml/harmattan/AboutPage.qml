@@ -87,7 +87,7 @@ Page {
                         fontPixelSize: 24
                     }
 
-                    text: qsTr("Version %1").arg("0.0.1")
+                    text: qsTr("Version %1").arg("0.1.1")
                 }
             }
 
