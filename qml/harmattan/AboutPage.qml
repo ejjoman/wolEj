@@ -21,22 +21,24 @@ Page {
 
         title: qsTr("Über Wake On Lan")
 
-//        Image {
-//            anchors {
-//                rightMargin: UIConstants.MARGIN_XLARGE
-//                right: parent.right
-//                verticalCenter: parent.verticalCenter
-//            }
+        /* Removed due to Nokia Store QA (WTF?!)
+        Image {
+            anchors {
+                rightMargin: UIConstants.MARGIN_XLARGE
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+            }
 
-//            source: "../images/btn_donate_LG.gif"
+            source: "../images/btn_donate_LG.gif"
 
-//            MouseArea {
-//                anchors.fill: parent
-//                onClicked: {
-//                    Qt.openUrlExternally("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KKQX7F8QMANK8")
-//                }
-//            }
-//        }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    Qt.openUrlExternally("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KKQX7F8QMANK8")
+                }
+            }
+        }
+        */
     }
 
     Flickable {
@@ -85,7 +87,7 @@ Page {
                         fontPixelSize: 24
                     }
 
-                    text: qsTr("Version %1").arg("0.0.1")
+                    text: qsTr("Version %1").arg("0.1.1")
                 }
             }
 
